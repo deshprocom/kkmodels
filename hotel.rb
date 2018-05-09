@@ -1,4 +1,6 @@
 class Hotel < ApplicationRecord
+  include Publishable
+
   mount_uploader :logo, ImageUploader
 
   def preview_logo
