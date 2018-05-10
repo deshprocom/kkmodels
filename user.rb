@@ -6,6 +6,7 @@ class User < ApplicationRecord
   include UserCountable
   mount_uploader :avatar, AvatarUploader
 
+  has_many :shipping_addresses, -> { order(default: :desc).order(created_at: :desc) }
   has_one :weixin_user, dependent: :destroy
   has_one :counter, class_name: 'UserCounter', dependent: :destroy
 
