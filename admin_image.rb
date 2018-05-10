@@ -8,4 +8,8 @@ class AdminImage < ApplicationRecord
 
     image.url(:sm)
   end
+
+  def original
+    image.url
+  end
 end
