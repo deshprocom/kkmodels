@@ -1,5 +1,6 @@
 class Hotel < ApplicationRecord
   include Publishable
+  has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
 
   mount_uploader :logo, ImageUploader
 
