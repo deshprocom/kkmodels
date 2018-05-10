@@ -6,6 +6,7 @@ class User < ApplicationRecord
   include UserCountable
   mount_uploader :avatar, AvatarUploader
 
+  has_one :weixin_user, dependent: :destroy
   has_one :counter, class_name: 'UserCounter', dependent: :destroy
 
   # 刷新访问时间
