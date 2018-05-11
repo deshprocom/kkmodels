@@ -2,7 +2,7 @@ module Stickable
   extend ActiveSupport::Concern
 
   included do
-    scope :stickied, ->  { where(stickied: true) }
+    scope :stickied, -> { where(stickied: true) }
   end
 
   def sticky!
