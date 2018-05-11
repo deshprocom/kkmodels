@@ -5,6 +5,7 @@ class Hotel < ApplicationRecord
   mount_uploader :logo, ImageUploader
 
   scope :user_visible, ->  { where(published: true).order(id: :desc) }
+  scope :search, -> (keyword) { where('title like ?', keyword) }
 
   def preview_logo
     return '' if logo&.url.nil?
