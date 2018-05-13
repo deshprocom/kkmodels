@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :user_extras, dependent: :destroy
   has_many :shipping_addresses, -> { order(default: :desc).order(created_at: :desc) }
   has_one :weixin_user, dependent: :destroy
+  has_many :topics, dependent: :destroy
   has_one :counter, class_name: 'UserCounter', dependent: :destroy
 
   # 刷新访问时间
