@@ -4,6 +4,7 @@ class Info < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   belongs_to :info_type
+  scope :search_keyword, ->(keyword) { where('title like ?', keyword) }
 
   after_initialize do
     self.date ||= Date.current
