@@ -1,6 +1,6 @@
 class UserExtra < ApplicationRecord
   include SoftDeletable
-  mount_uploader :image, CardImageUploader
+  mount_uploader :image, ImageUploader
 
   belongs_to :user, optional: true
   enum status: { init: 'init', pending: 'pending', 'passed': 'passed', 'failed': 'failed' }

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include UserNameGenerator
   include UserCreator
   include UserCountable
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, ImageUploader
 
   has_many :user_extras, dependent: :destroy
   has_many :shipping_addresses, -> { order(default: :desc).order(created_at: :desc) }
