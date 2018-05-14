@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :topics, dependent: :destroy
   has_one :counter, class_name: 'UserCounter', dependent: :destroy
 
+  action_store :like, :topic, counter_cache: true
+  action_store :follow, :user, counter_cache: 'followers_count', user_counter_cache: 'following_count'
+
   # 刷新访问时间
   def touch_visit!
     self.last_visit = Time.zone.now
