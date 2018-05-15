@@ -3,6 +3,7 @@ class Info < ApplicationRecord
   include Stickable
   mount_uploader :image, ImageUploader
 
+  validates :image, presence: true, if: :new_record?
   belongs_to :info_type
   scope :search_keyword, ->(keyword) { where('title like ?', keyword) }
 

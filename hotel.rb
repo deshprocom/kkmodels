@@ -2,6 +2,7 @@ class Hotel < ApplicationRecord
   include Publishable
   mount_uploader :logo, ImageUploader
 
+  validates :logo, presence: true, if: :new_record?
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
 
   scope :user_visible, -> { where(published: true).order(id: :desc) }
