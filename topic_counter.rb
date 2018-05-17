@@ -1,2 +1,1 @@
-class TopicCounter < ApplicationRecord
-end
+class TopicCounter < ApplicationRecord; end
