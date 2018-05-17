@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include UserCreator
   include UserCountable
   mount_uploader :avatar, ImageUploader
+  extend Geocoder::Model::ActiveRecord
+  reverse_geocoded_by :lat, :lng
 
   has_many :user_extras, dependent: :destroy
   has_many :shipping_addresses, -> { order(default: :desc).order(created_at: :desc) }
