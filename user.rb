@@ -15,8 +15,8 @@ class User < ApplicationRecord
   has_one :counter, class_name: 'UserCounter', dependent: :destroy
 
   action_store :like,     :topic, counter_cache: true
-  action_store :info,     :topic, counter_cache: true
-  action_store :hotel,    :topic, counter_cache: true
+  action_store :like,     :info,  counter_cache: true
+  action_store :like,     :hotel, counter_cache: true
   action_store :comment,  :topic, counter_cache: true
   action_store :replies,  :topic, counter_cache: true
   action_store :follow,   :user,  counter_cache: 'followers_count', user_counter_cache: 'following_count'
