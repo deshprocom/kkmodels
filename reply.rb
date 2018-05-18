@@ -5,4 +5,5 @@ class Reply < ApplicationRecord
   has_many   :replies, class_name: 'Reply', foreign_key: 'reply_id', dependent: :destroy
   belongs_to :reply, optional: true
   has_many   :dynamics, as: :target, dependent: :destroy
+  include TopicNotify
 end
