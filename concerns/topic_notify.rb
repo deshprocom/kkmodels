@@ -11,6 +11,10 @@ module TopicNotify
     TopicNotification.create(payload) if payload.present?
   end
 
+  def delete_notify
+    TopicNotification.where(notify_type: notify_type_by_model, source: self, target: user).delete_all
+  end
+
   def notify_payload
     table_name = self.class.table_name
     send("payload_#{table_name}")
@@ -30,5 +34,9 @@ module TopicNotify
   # 说说和长帖 并且 不是回复的自己
   def notify_needed?
     target.class.name.eql?('Topic') && !user_id.eql?(target.user_id)
+  end
+
+  def notify_type_by_model
+    self.class.to_s.tableize.singularize
   end
 end
