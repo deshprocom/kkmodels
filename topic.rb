@@ -1,5 +1,7 @@
 class Topic < ApplicationRecord
   include TopicCountable
+  include Excellentable
+
   belongs_to :user
   has_many   :comments, as: :target, dependent: :destroy
   has_many   :replies,  as: :target, dependent: :destroy
@@ -7,6 +9,9 @@ class Topic < ApplicationRecord
   serialize :images, JSON
 
   scope :user_visible, -> { where(status: 'passed').order(id: :desc) }
+
+  enum body_type: { long: 'long', short: 'short' }
+  enum status: { pending: 'pending', passed: 'passed', failed: 'failed' }
 
   def self.excellent
     where(excellent: true)
