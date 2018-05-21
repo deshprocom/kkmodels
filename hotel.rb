@@ -3,6 +3,7 @@ class Hotel < ApplicationRecord
   mount_uploader :logo, ImageUploader
 
   validates :logo, presence: true, if: :new_record?
+  has_many  :comments, as: :target, dependent: :destroy
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
 
   scope :user_visible, -> { where(published: true).order(id: :desc) }
@@ -12,5 +13,9 @@ class Hotel < ApplicationRecord
     return '' if logo&.url.nil?
 
     logo.url(:sm)
+  end
+
+  def total_comments
+    comments_count + replies_count
   end
 end
