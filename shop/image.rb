@@ -6,15 +6,15 @@ module Shop
 
     scope :position_asc, -> { order(position: :asc) }
     def preview
-      return '' if image.url.nil?
+      image.url(:md).to_s
+    end
 
-      image.url(:md)
+    def large
+      image.url(:lg).to_s
     end
 
     def original
-      return '' if image.url.nil?
-
-      image.url
+      image.url.to_s
     end
   end
 end

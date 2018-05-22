@@ -13,6 +13,7 @@ module Shop
 
     scope :recommended, -> { where(recommended: true) }
     scope :published, -> { where(published: true) }
+    scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
 
     if ENV['CURRENT_PROJECT'] == 'kkcms'
       ransacker :by_root_category, formatter: proc { |v|
@@ -34,8 +35,8 @@ module Shop
       Category.decrement_counter(:products_count, category_id_was) unless category_id_was.nil?
     end
 
-    def self.in_category(category)
-      where(category_id: category.self_and_descendants.pluck(:id))
+    def self.in_category(category_id)
+      where(category_id: Category.find(category_id).self_and_descendants.pluck(:id))
     end
 
     def preview_icon
