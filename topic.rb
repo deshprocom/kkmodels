@@ -17,6 +17,10 @@ class Topic < ApplicationRecord
     where(excellent: true)
   end
 
+  def long?
+    body_type.eql? 'long'
+  end
+
   def total_comments
     comments_count + replies_count
   end
