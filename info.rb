@@ -6,7 +6,7 @@ class Info < ApplicationRecord
   validates :image, presence: true, if: :new_record?
   belongs_to :info_type
   has_many   :comments, as: :target, dependent: :destroy
-  scope :search_keyword, ->(keyword) { where('title like ?', keyword) }
+  scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
 
   after_initialize do
     self.date ||= Date.current

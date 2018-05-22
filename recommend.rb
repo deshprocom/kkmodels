@@ -1,6 +1,5 @@
 class Recommend < ApplicationRecord
   mount_uploader :image, ImageUploader
-
   validates :source_type, presence: true
   validates :source_id, presence: true
   scope :position_desc, -> { order(position: :desc) }
@@ -8,7 +7,7 @@ class Recommend < ApplicationRecord
   def source
     @source ||= source_id && source_type.classify.safe_constantize.find(source_id)
   end
-  
+
   def source_title
     return if source.nil?
 
@@ -18,7 +17,7 @@ class Recommend < ApplicationRecord
   def source_image
     return if source.nil?
 
-    return source.preview_logo if source_type === 'hotel'
+    return source.preview_logo if source_type == 'hotel'
 
     source.preview_image
   end
