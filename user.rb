@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :topics, dependent: :destroy
   has_many :actions, dependent: :destroy
   has_many :dynamics, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :replies, dependent: :destroy
   has_many :topic_notifications, dependent: :destroy
   has_one :counter, class_name: 'UserCounter', dependent: :destroy
 
