@@ -5,6 +5,7 @@ class Topic < ApplicationRecord
   belongs_to :user
   has_many   :comments, as: :target, dependent: :destroy
   has_many   :replies,  as: :target, dependent: :destroy
+  has_many   :reports,  as: :target, dependent: :destroy
   has_one    :topic_counter, dependent: :destroy
   serialize :images, JSON
 
