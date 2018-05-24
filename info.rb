@@ -15,7 +15,7 @@ class Info < ApplicationRecord
   def preview_image
     return '' if image&.url.nil?
 
-    image.url(:sm)
+    image.url(:md)
   end
 
   def total_comments
