@@ -3,7 +3,7 @@ module Shop
     belongs_to :order
     belongs_to :product, optional: true
     belongs_to :variant
-    has_many :product_refund_details, dependent: :destroy
+    # has_many :product_refund_details, dependent: :destroy
 
     serialize :sku_value, JSON
     REFUND_STATUSES = %w(none open close completed).freeze

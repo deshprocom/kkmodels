@@ -52,11 +52,15 @@ module Shop
     end
 
     def could_refund?
-      paid? || (delivered? && delivered_time.present? && delivered_time > 15.days.ago)
+      paid? || (delivered? && delivered_at.present? && delivered_at > 15.days.ago)
+    end
+
+    def delivered?
+      delivered_at.present?
     end
 
     def self.delivered_15_days
-      delivered.where('delivered_time < ?', 15.days.ago)
+      delivered.where('delivered_at < ?', 15.days.ago)
     end
 
     # 是否可退现金
