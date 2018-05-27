@@ -15,7 +15,7 @@ module Shop
       self.original_price = variant.original_price
       self.price          = variant.price
       self.sku_value      = variant.text_sku_values
-      self.seven_days_return = variant.product.seven_days_return
+      self.returnable     = variant.product.returnable
     end
 
     def open_refund

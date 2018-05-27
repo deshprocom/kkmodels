@@ -3,10 +3,12 @@ module Shop
     include Publishable
     include Recommendable
     include ProductVariable
+    include ProductCountable
 
     belongs_to :category, optional: false
     has_many :option_types
     has_many  :images, as: :imageable, dependent: :destroy, class_name: Image
+    has_one :counter, class_name: ProductCounter
 
     validates :title, presence: true
     attr_accessor :root_category
