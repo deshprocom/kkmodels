@@ -23,7 +23,7 @@ module Shop
     def cancel_order(reason = '取消订单')
       return if canceled?
       update(cancel_reason: reason, cancelled_at: Time.zone.now, status: 'canceled')
-      product_order_items.each do |item|
+      order_items.each do |item|
         item.variant.increase_stock(item.number)
         next if item.variant.is_master?
 
