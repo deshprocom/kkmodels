@@ -32,7 +32,7 @@ module Shop
     end
 
     def delivered!
-      update(status: 'delivered',  delivered_at: Time.zone.now)
+      update(status: 'delivered', delivered_at: Time.zone.now)
     end
 
     def completed!
