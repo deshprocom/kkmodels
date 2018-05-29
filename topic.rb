@@ -9,7 +9,7 @@ class Topic < ApplicationRecord
   has_one    :topic_counter, dependent: :destroy
   serialize :images, JSON
 
-  scope :user_visible, -> { where(status: 'passed').order(id: :desc) }
+  scope :user_visible, -> { where(status: 'passed') }
 
   enum body_type: { long: 'long', short: 'short' }
   enum status: { pending: 'pending', passed: 'passed', failed: 'failed' }
