@@ -7,7 +7,11 @@ module Shop
 
     belongs_to :category, optional: false
     has_many :option_types
-    has_many  :images, as: :imageable, dependent: :destroy, class_name: Image
+    has_many :order_items
+    has_many  :images, -> { order(position: :asc) },
+              as: :imageable,
+              dependent: :destroy,
+              class_name: Image
     has_one :counter, class_name: ProductCounter
 
     validates :title, presence: true

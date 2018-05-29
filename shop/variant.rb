@@ -3,7 +3,7 @@ module Shop
     belongs_to :product, required: false
     has_many :variant_option_values, dependent: :destroy
     has_many :option_values, through: :variant_option_values
-    has_many :product_order_items
+    has_many :order_items
     has_one  :image, as: :imageable, dependent: :destroy, class_name: Image
     accepts_nested_attributes_for :image, update_only: true
 

@@ -6,7 +6,7 @@ module Shop
     # has_many :product_refund_details, dependent: :destroy
 
     serialize :sku_value, JSON
-    REFUND_STATUSES = %w(none open close completed).freeze
+    REFUND_STATUSES = %w[none open close completed].freeze
     validates :refund_status, inclusion: { in: REFUND_STATUSES }
     # enum refund_status: { none_refund: 'none', open: 'open', close: 'close', 'completed': 'completed' }
 
