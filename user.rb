@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :topic_notifications, dependent: :destroy
   has_one :counter, class_name: 'UserCounter', dependent: :destroy
   has_many :shop_orders, class_name: Shop::Order
+  has_one :j_user, dependent: :destroy
 
   action_store :like,     :topic, counter_cache: true
   action_store :like,     :info,  counter_cache: true
