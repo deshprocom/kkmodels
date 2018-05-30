@@ -5,6 +5,7 @@ module Shop
     has_one :shipping_info, dependent: :destroy
     has_many :order_items, dependent: :destroy
     has_many :wx_bills, class_name: 'WxBill'
+    has_one :shipment, dependent: :destroy
 
     PAY_STATUSES = %w[unpaid paid failed refund].freeze
     validates :pay_status, inclusion: { in: PAY_STATUSES }
@@ -32,8 +33,8 @@ module Shop
       end
     end
 
-    def delivered!
-      update(status: 'delivered', delivered_at: Time.zone.now)
+    def deliver!
+      update(status: 'delivered', delivered_at: Time.zone.now) if paid?
     end
 
     def completed!
