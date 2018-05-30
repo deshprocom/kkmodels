@@ -31,7 +31,7 @@ module Shop
       update(refund_status: 'close')
     end
 
-    def completed!
+    def complete!
       update(refund_status: 'completed')
     end
   end
