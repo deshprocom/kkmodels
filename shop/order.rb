@@ -4,6 +4,7 @@ module Shop
 
     has_one :shipping_info, dependent: :destroy
     has_many :order_items, dependent: :destroy
+    has_many :wx_bills, class_name: 'WxBill'
 
     PAY_STATUSES = %w[unpaid paid failed refund].freeze
     validates :pay_status, inclusion: { in: PAY_STATUSES }
