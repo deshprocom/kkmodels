@@ -6,6 +6,7 @@ module Shop
     include ProductCountable
 
     belongs_to :category, optional: false
+    belongs_to :shipping
     has_many :option_types
     has_many :order_items
     has_many  :images, -> { order(position: :asc) },
