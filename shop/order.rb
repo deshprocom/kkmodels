@@ -37,8 +37,8 @@ module Shop
       update(status: 'delivered', delivered_at: Time.zone.now) if paid?
     end
 
-    def completed!
-      update(status: 'completed', completed_at: Time.zone.now)
+    def complete!
+      update(status: 'completed', completed_at: Time.zone.now) if delivered?
     end
 
     def deleted!
