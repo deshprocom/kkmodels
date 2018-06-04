@@ -1,0 +1,2 @@
+class IntegralRule < ApplicationRecord
+end
