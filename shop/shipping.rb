@@ -10,14 +10,18 @@ module Shop
     validates :name, presence: true
     enum calc_rule: { weight: 'weight', number: 'number', free_shipping: 'free_shipping' }
 
-    def by_weight?
+    def based_weight?
       weight?
     end
 
-    def default_freight_fee(weight)
+    def default_freight_fee(product)
       return 0.0 if free_shipping?
 
-      default_method.freight_fee(weight)
+      if based_weight?
+        default_method.freight_fee(product.master.weight)
+      else
+        default_method.freight_fee(1)
+      end
     end
 
     def by_code_or_default_method(code)
