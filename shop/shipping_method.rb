@@ -5,13 +5,12 @@ module Shop
 
     validates :name, presence: true
 
-    scope :default_method, -> { where(default_method: true).first }
-
-
-    def freight_fee(weight)
-      margin = weight - first_item
+    def freight_fee(number)
+      margin = number - first_item
       return first_price if margin < 0
-      first_price + ((margin / add_item).to_i + 1) * add_price
+
+      # ceil 进一取整
+      first_price + (margin / add_item).ceil * add_price
     end
   end
 end
