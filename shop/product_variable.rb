@@ -30,6 +30,8 @@ module Shop
 
         variant = variants.create(price: master.price,
                                   original_price: master.original_price,
+                                  weight: master.weight,
+                                  volume: master.volume,
                                   stock: 100,
                                   sku_option_values: sku_option_values)
         variant.build_option_values(values_sku)
