@@ -4,4 +4,5 @@ class Comment < ApplicationRecord
   has_many   :replies, dependent: :destroy
   has_many   :dynamics, as: :target, dependent: :destroy
   include TopicNotify
+  include Excellentable
 end
