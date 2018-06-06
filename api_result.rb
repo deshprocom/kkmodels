@@ -6,11 +6,17 @@
 
 class ApiResult
   attr_accessor :code, :msg, :data
-
+  SUCCESS_CALL = 0
   def initialize(code = 0, msg = 'ok', data = {})
     self.code = code
     self.msg = msg
     self.data = data
+  end
+
+  ##
+  # 是否为失败结果
+  def failure?
+    code != SUCCESS_CALL
   end
 
   ##
@@ -22,7 +28,7 @@ class ApiResult
   ##
   # 返回成功对象及对应的状态码
   def self.success_with_data(data)
-    new(0, 'ok', data)
+    new(SUCCESS_CALL, 'ok', data)
   end
 
   ##
