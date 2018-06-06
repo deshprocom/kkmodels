@@ -58,5 +58,10 @@ module Shop
     def refundable_price
       final_price - refunded_price
     end
+
+    # 超过了发货时间30天
+    def delivered_over_30_days?
+      delivered? && delivered_at < 30.days.ago
+    end
   end
 end

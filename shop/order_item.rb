@@ -17,6 +17,7 @@ module Shop
       self.price          = variant.price
       self.sku_value      = variant.text_sku_values
       self.returnable     = variant.product.returnable
+      self.variant_image  = variant.image&.preview || product.preview_icon
     end
 
     def refunded?
