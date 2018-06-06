@@ -3,12 +3,13 @@ module Shop
     belongs_to :order
     belongs_to :product, optional: true
     belongs_to :variant
+    has_one :recent_return, -> { order(id: :desc) }, class_name: ReturnItem
     # has_many :product_refund_details, dependent: :destroy
 
     serialize :sku_value, JSON
-    REFUND_STATUSES = %w[none open close completed].freeze
-    validates :refund_status, inclusion: { in: REFUND_STATUSES }
-    # enum refund_status: { none_refund: 'none', open: 'open', close: 'close', 'completed': 'completed' }
+    # none 没有退款申请， pending 退款申请中, refused 拒绝退款， refunded 已退款
+    # REFUND_STATUSES = %w[none pending refused refunded].freeze
+    # validates :refund_status, inclusion: { in: REFUND_STATUSES }
 
     def syn_variant
       self.product_id     = variant.product_id
@@ -18,21 +19,8 @@ module Shop
       self.returnable     = variant.product.returnable
     end
 
-    def open_refund
-      update(refund_status: 'open')
-    end
-
-    def could_refund?
-      # 只有订单状态为none和close状态的情况可以退款
-      %(none close).include?(refund_status)
-    end
-
-    def close!
-      update(refund_status: 'close')
-    end
-
-    def complete!
-      update(refund_status: 'completed')
+    def refunded?
+      refunded
     end
   end
 end

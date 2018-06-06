@@ -5,6 +5,7 @@ module Shop
     has_one :shipping_info, dependent: :destroy
     has_many :order_items, dependent: :destroy
     has_many :wx_bills, class_name: 'WxBill'
+    has_many :customer_returns
     has_one :shipment, dependent: :destroy
 
     PAY_STATUSES = %w[unpaid paid failed refund].freeze
