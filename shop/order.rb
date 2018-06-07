@@ -15,9 +15,7 @@ module Shop
                    paid: 'paid',
                    delivered: 'delivered',
                    completed: 'completed',
-                   canceled: 'canceled',
-                   returning: 'returning',
-                   returned: 'returned' }
+                   canceled: 'canceled'}
 
     before_create do
       self.order_number = Services::UniqueNumberGenerator.call(Order)
