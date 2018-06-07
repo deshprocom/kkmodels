@@ -8,7 +8,7 @@ module Shop
     has_many :customer_returns
     has_one :shipment, dependent: :destroy
 
-    PAY_STATUSES = %w[unpaid paid failed refund].freeze
+    PAY_STATUSES = %w[unpaid paid].freeze
     validates :pay_status, inclusion: { in: PAY_STATUSES }
 
     enum status: { unpaid: 'unpaid',
@@ -50,10 +50,6 @@ module Shop
       update(deleted_at: Time.zone.now)
     end
 
-    def could_refund?
-      paid? || (delivered? && delivered_at.present? && delivered_at > 15.days.ago)
-    end
-
     # 可退的现金
     def refundable_price
       final_price - refunded_price
@@ -62,6 +58,10 @@ module Shop
     # 超过了发货时间30天
     def delivered_over_30_days?
       delivered? && delivered_at < 30.days.ago
+    end
+
+    def paid?
+      pay_status == 'paid'
     end
   end
 end
