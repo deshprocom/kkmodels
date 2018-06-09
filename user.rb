@@ -41,4 +41,15 @@ class User < ApplicationRecord
   def action_likes
     actions.where(action_type: 'like')
   end
+
+  def silenced!(reason, till)
+    update(silenced: true,
+           silence_at: Time.zone.now,
+           silence_reason: reason,
+           silence_till: till)
+  end
+
+  def silenced_and_till?
+    silenced? && (silence_till > Time.zone.now)
+  end
 end
