@@ -50,6 +50,6 @@ class User < ApplicationRecord
   end
 
   def silenced_and_till?
-    silenced? && (silence_till > Time.zone.now)
+    silenced? && (silence_till.to_i > Time.zone.now.to_i)
   end
 end
