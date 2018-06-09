@@ -9,4 +9,8 @@ class Integral < ApplicationRecord
     self.active_at = Time.zone.now
     save
   end
+
+  def self.today
+    where('created_at >= ?', DateTime.now.beginning_of_day).where('created_at <= ?', DateTime.now.end_of_day)
+  end
 end
