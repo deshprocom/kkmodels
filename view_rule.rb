@@ -1,0 +1,2 @@
+class ViewRule < ApplicationRecord
+end
