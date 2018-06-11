@@ -16,4 +16,14 @@ class TopicNotification < ApplicationRecord
   def self.unread_count(user)
     where(user: user).unread.count
   end
+
+  def view_visible?
+    return true if notify_type.eql?('follow')
+
+    if notify_type.in?(%w[comment reply])
+      source.present? && source.target.present?
+    else
+      source.present?
+    end
+  end
 end

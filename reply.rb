@@ -6,4 +6,6 @@ class Reply < ApplicationRecord
   belongs_to :reply, optional: true
   has_many   :dynamics, as: :target, dependent: :destroy
   include TopicNotify
+
+  default_scope { where('deleted_at IS NULL') }
 end
