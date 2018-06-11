@@ -10,7 +10,7 @@ class Topic < ApplicationRecord
   has_one :view_toggle, as: :target, dependent: :destroy
   serialize :images, JSON
 
-  scope :user_visible, -> { where.not(status: 'failed') }
+  default_scope { where.not(status: 'failed') } unless ENV['CURRENT_PROJECT'] == 'kkcms'
 
   enum body_type: { long: 'long', short: 'short' }
   enum status: { pending: 'pending', passed: 'passed', failed: 'failed' }
