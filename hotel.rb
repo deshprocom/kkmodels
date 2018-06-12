@@ -6,6 +6,7 @@ class Hotel < ApplicationRecord
   has_many  :comments, as: :target, dependent: :destroy
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
   has_many  :hotel_rooms
+  has_many  :published_rooms, -> { where(published: true) }, class_name: 'HotelRoom'
 
   scope :user_visible, -> { where(published: true).order(id: :desc) }
   scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
