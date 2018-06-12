@@ -5,6 +5,7 @@ class Hotel < ApplicationRecord
   validates :logo, presence: true, if: :new_record?
   has_many  :comments, as: :target, dependent: :destroy
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
+  has_many  :hotel_rooms
 
   scope :user_visible, -> { where(published: true).order(id: :desc) }
   scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
