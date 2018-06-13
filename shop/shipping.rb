@@ -2,7 +2,7 @@ module Shop
   class Shipping < Shop::Base
     belongs_to :express
     has_many :shipping_methods
-    has_one :default_method, -> { where(default_method: true) }, class_name: ShippingMethod
+    has_one :default_method, -> { where(default_method: true) }, class_name: 'ShippingMethod'
     has_many :shipping_regions
     has_many :products
 

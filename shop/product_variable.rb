@@ -4,7 +4,7 @@ module Shop
     included do
       has_one :master,
               -> { where is_master: true },
-              class_name: Variant
+              class_name: 'Variant'
       accepts_nested_attributes_for :master, update_only: true
 
       has_many :variants,

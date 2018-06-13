@@ -12,8 +12,8 @@ module Shop
     has_many  :images, -> { order(position: :asc) },
               as: :imageable,
               dependent: :destroy,
-              class_name: Image
-    has_one :counter, class_name: ProductCounter
+              class_name: 'Image'
+    has_one :counter, class_name: 'ProductCounter'
 
     validates :title, presence: true
     attr_accessor :root_category
