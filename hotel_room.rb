@@ -13,10 +13,10 @@ class HotelRoom < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
 
   def tags
-    text_tags.split(',')
+    text_tags.split(%r{,\s*})
   end
 
   def notes
-    text_notes.split(',')
+    text_notes.split(%r{,\s*})
   end
 end

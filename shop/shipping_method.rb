@@ -7,7 +7,7 @@ module Shop
 
     def freight_fee(number)
       margin = number - first_item
-      return first_price if margin.negative
+      return first_price if margin.negative?
 
       # ceil 进一取整
       first_price + (margin / add_item).ceil * add_price
