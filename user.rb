@@ -22,7 +22,7 @@ class User < ApplicationRecord
   has_many :shop_orders, class_name: 'Shop::Order'
   has_one :j_user, dependent: :destroy
   has_many :integrals, dependent: :destroy
-  has_many :hotel_orders
+  has_many :hotel_orders, -> { where.not(status: 'deleted').order(id: :desc) }
 
   action_store :like,     :topic, counter_cache: true
   action_store :like,     :info,  counter_cache: true

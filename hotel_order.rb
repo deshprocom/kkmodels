@@ -7,6 +7,8 @@ class HotelOrder < ApplicationRecord
 
   enum status: { unpaid: 'unpaid',
                  paid: 'paid',
+                 canceled: 'canceled',
+                 deleted: 'deleted',
                  confirmed: 'confirmed' }
 
   PAY_STATUSES = %w[unpaid paid].freeze
