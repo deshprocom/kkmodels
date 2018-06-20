@@ -8,6 +8,6 @@ class IntegralRule < ApplicationRecord
   end
 
   def icon_path
-    icon.url.presence || ""
+    icon.url.presence || ''
   end
 end
