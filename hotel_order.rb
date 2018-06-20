@@ -13,7 +13,7 @@ class HotelOrder < ApplicationRecord
   validates :pay_status, inclusion: { in: PAY_STATUSES }
 
   def total_price_from_items
-    room_items.map{|i| i['price'].to_f }.sum
+    room_items.map { |i| i['price'].to_f }.sum
   end
 
   def nights_num
