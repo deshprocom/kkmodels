@@ -61,5 +61,9 @@ module Shop
     def paid?
       pay_status == 'paid'
     end
+
+    def pay_title
+      '商品订单'
+    end
   end
 end

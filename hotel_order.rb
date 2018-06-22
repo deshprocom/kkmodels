@@ -21,4 +21,8 @@ class HotelOrder < ApplicationRecord
   def nights_num
     (checkout_date - checkin_date).to_i
   end
+
+  def pay_title
+    hotel_room.hotel.title
+  end
 end
