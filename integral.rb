@@ -11,6 +11,6 @@ class Integral < ApplicationRecord
   end
 
   def self.today
-    where('created_at >= ?', DateTime.now.beginning_of_day).where('created_at <= ?', DateTime.now.end_of_day)
+    where('created_at >= ?', Time.now.beginning_of_day).where('created_at <= ?', Time.now.end_of_day)
   end
 end
