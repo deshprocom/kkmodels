@@ -2,14 +2,16 @@ class HotelOrder < ApplicationRecord
   belongs_to :user
   belongs_to :hotel_room
   has_many :checkin_infos
+  has_many :hotel_refunds, foreign_key: :order_id
 
   serialize :room_items, JSON
 
   enum status: { unpaid: 'unpaid',
                  paid: 'paid',
+                 confirmed: 'confirmed',
+                 refunded: 'refunded',
                  canceled: 'canceled',
-                 deleted: 'deleted',
-                 confirmed: 'confirmed' }
+                 deleted: 'deleted', }
 
   PAY_STATUSES = %w[unpaid paid].freeze
   validates :pay_status, inclusion: { in: PAY_STATUSES }
