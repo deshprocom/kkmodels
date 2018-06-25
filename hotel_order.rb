@@ -2,6 +2,9 @@ class HotelOrder < ApplicationRecord
   belongs_to :user
   belongs_to :hotel_room
   has_many :checkin_infos
+  has_one :recent_refund, -> { order(id: :desc) },
+          class_name: 'HotelRefund',
+          foreign_key: :order_id
   has_many :hotel_refunds, foreign_key: :order_id
 
   serialize :room_items, JSON
@@ -26,5 +29,29 @@ class HotelOrder < ApplicationRecord
 
   def pay_title
     hotel_room.hotel.title
+  end
+
+  STATUS_TEXT_TRANS = {
+    refund_pending: '退款申请中',
+    refund_refused: '拒绝退款',
+    unpaid: '未支付',
+    paid: '已支付',
+    confirmed: '待入住',
+    refunded: '已退款',
+    canceled: '已取消',
+  }.freeze
+  # 状态显示的第一优先级为 退款中，退款失败
+  def status_text
+    if recent_refund&.refund_status.in?(%w[pending refused])
+      return STATUS_TEXT_TRANS["refund_#{recent_refund.refund_status}".to_sym]
+    end
+
+    STATUS_TEXT_TRANS[status.to_sym]
+  end
+
+  def refundable?
+    return false if unpaid? || refunded? || recent_refund&.refund_status == 'pending'
+
+    true
   end
 end
