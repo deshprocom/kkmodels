@@ -1,0 +1,2 @@
+class CouponTemp < ApplicationRecord
+end
