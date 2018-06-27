@@ -1,4 +1,5 @@
 class CouponTemp < ApplicationRecord
+  include Publishable
   has_many :coupons, dependent: :destroy
 
   enum coupon_type: { hotel: 'hotel', shop: 'shop', new_user: 'new_user' }
