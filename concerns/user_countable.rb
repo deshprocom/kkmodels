@@ -13,6 +13,10 @@ module UserCountable
   def increase_points(by)
     counter.increment!(:points, by)
   end
+
+  def decrease_points(by)
+    counter.decrement!(:points, by)
+  end
 end
 
 

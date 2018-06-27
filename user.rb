@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :integrals, dependent: :destroy
   has_many :hotel_orders, -> { where.not(status: 'deleted').order(id: :desc) }
   has_many :hotel_refund, -> { order(id: :desc) }
+  has_many :coupons, dependent: :destroy
 
   action_store :like,     :topic, counter_cache: true
   action_store :like,     :info,  counter_cache: true
