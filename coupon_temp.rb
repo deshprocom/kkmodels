@@ -1,8 +1,9 @@
 class CouponTemp < ApplicationRecord
   include Publishable
   has_many :coupons, dependent: :destroy
+  mount_uploader :cover_link, ImageUploader
 
-  enum coupon_type: { hotel: 'hotel', shop: 'shop', new_user: 'new_user' }
+  enum coupon_type: { hotel: 'hotel', shop: 'shop' }
   enum discount_type: { reduce: 'reduce', full_reduce: 'full_reduce', rebate: 'rebate' }
 
   scope :published, -> { where(published: true) }
@@ -24,5 +25,11 @@ class CouponTemp < ApplicationRecord
 
   def stock
     coupons_count - coupon_received_count
+  end
+
+  def preview_image
+    return '' if cover_link&.url.nil?
+
+    cover_link.url(:sm)
   end
 end
