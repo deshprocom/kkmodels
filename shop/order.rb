@@ -11,6 +11,9 @@ module Shop
     PAY_STATUSES = %w[unpaid paid].freeze
     validates :pay_status, inclusion: { in: PAY_STATUSES }
 
+    PAY_CHANNELS = %w[weixin ali].freeze
+    validates :pay_channel, inclusion: { in: PAY_CHANNELS }
+
     enum status: { unpaid: 'unpaid',
                    paid: 'paid',
                    delivered: 'delivered',
@@ -18,7 +21,7 @@ module Shop
                    canceled: 'canceled' }
 
     before_create do
-      self.order_number = Services::UniqueNumberGenerator.call(Order)
+      self.order_number = UniqueNumberGenerator.call(Order)
     end
 
     def cancel_order(reason = '取消订单')
