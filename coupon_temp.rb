@@ -30,6 +30,6 @@ class CouponTemp < ApplicationRecord
   def preview_image
     return '' if cover_link&.url.nil?
 
-    cover_link.url(:sm)
+    cover_link.url(:md)
   end
 end
