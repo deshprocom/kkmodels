@@ -19,6 +19,9 @@ class HotelOrder < ApplicationRecord
   PAY_STATUSES = %w[unpaid paid].freeze
   validates :pay_status, inclusion: { in: PAY_STATUSES }
 
+  PAY_CHANNELS = %w[weixin ali].freeze
+  validates :pay_channel, inclusion: { in: PAY_CHANNELS }
+
   def total_price_from_items
     room_items.map { |i| i['price'].to_f }.sum
   end
