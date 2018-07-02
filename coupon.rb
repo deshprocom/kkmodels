@@ -10,7 +10,7 @@ class Coupon < ApplicationRecord
   end
 
   def expired?
-    expire_time < Time.zone.now
+    expire_time && expire_time < Time.zone.now
   end
 
   def received_by_user(user, effect_day = 30)
@@ -22,5 +22,31 @@ class Coupon < ApplicationRecord
            expire_time: expire_time,
            user_id: user.id,
            coupon_status: 'unused')
+  end
+
+  def conform_discount_rules?(order_price)
+    return true if coupon_temp.reduce?
+
+    return true if coupon_temp.rebate?
+
+    return true if coupon_temp.full_reduce? && order_price >= coupon_temp.limit_price
+
+    false
+  end
+
+  def discount_amount(order_price)
+    if coupon_temp.reduce?
+      return coupon_temp.reduce_price
+    end
+
+    if coupon_temp.rebate?
+      return order_price - (order_price * coupon_temp.discount)
+    end
+
+    if coupon_temp.full_reduce? && order_price >= coupon_temp.limit_price
+      return coupon_temp.reduce_price
+    end
+
+    0.0
   end
 end

@@ -23,7 +23,7 @@ class HotelOrder < ApplicationRecord
   validates :pay_channel, inclusion: { in: PAY_CHANNELS }
 
   def total_price_from_items
-    room_items.map { |i| i['price'].to_f }.sum
+    @total_price_from_items ||= room_items.map { |i| i['price'].to_f }.sum
   end
 
   def nights_num
