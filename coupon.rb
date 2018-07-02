@@ -3,7 +3,7 @@ class Coupon < ApplicationRecord
   belongs_to :coupon_temp, counter_cache: true
   scope :unclaimed, -> { where(coupon_status: 'init') } # 未兑换
   scope :used, -> { where('expire_time < ? or coupon_status = ?', Time.zone.now, 'used') } # 已过期或已使用
-  scope :unused, -> { where('coupon_status = ? or coupon_status = ?', 'unused', 'refund') } # 未使用
+  scope :unused, -> { where('expire_time > ?', Time.zone.now).where('coupon_status = ? or coupon_status = ?', 'unused', 'refund') } # 未使用
 
   before_create do
     self.coupon_number = SecureRandom.hex(16)
