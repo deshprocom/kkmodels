@@ -1,4 +1,5 @@
 class Integral < ApplicationRecord
+  include IntegralCreator
   belongs_to :user
   belongs_to :target, polymorphic: true, optional: true
   scope :tasks, -> { where(category: 'tasks') }

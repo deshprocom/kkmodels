@@ -16,7 +16,7 @@ class Coupon < ApplicationRecord
   def received_by_user(user, effect_day = 30)
     receive_time = Time.zone.now
     expire_day = self.expire_day || effect_day
-    expire_time = receive_time + expire_day.day
+    expire_time = receive_time + expire_day.days
     update(receive_time: receive_time,
            expire_day: expire_day,
            expire_time: expire_time,
