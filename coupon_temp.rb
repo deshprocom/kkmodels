@@ -11,7 +11,7 @@ class CouponTemp < ApplicationRecord
 
   # 已经有用户领取的模版不可以删除
   def could_delete?
-    coupon_received_count.positive?
+    coupon_received_count.zero?
   end
 
   # 待领取
