@@ -6,6 +6,7 @@ class HotelOrder < ApplicationRecord
           class_name: 'HotelRefund',
           foreign_key: :order_id
   has_many :hotel_refunds, foreign_key: :order_id
+  has_one :coupon, as: :target
 
   serialize :room_items, JSON
 
