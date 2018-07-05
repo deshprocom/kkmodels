@@ -56,4 +56,8 @@ class User < ApplicationRecord
   def silenced_and_till?
     silenced? && (silence_till.to_i > Time.zone.now.to_i)
   end
+
+  def display_name
+    nick_name
+  end
 end
