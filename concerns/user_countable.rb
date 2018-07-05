@@ -17,6 +17,10 @@ module UserCountable
   def decrease_points(by)
     counter.decrement!(:points, by)
   end
+
+  def increase_pocket_money(by)
+    counter.increment!(:total_pocket_money, by)
+  end
 end
 
 

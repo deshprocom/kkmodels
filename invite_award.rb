@@ -1,0 +1,2 @@
+class InviteAward < ApplicationRecord
+end
