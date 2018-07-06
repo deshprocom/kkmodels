@@ -11,6 +11,8 @@ module PocketMoneyCreator
 
       amount = invite_award.direct_award
       create({option_type: 'invite', amount: amount}.merge(params))
+      params[:user].increase_direct_invite_count
+      params[:user].increase_direct_invite_money(amount)
       params[:user].increase_pocket_money(amount)
     end
 
@@ -23,6 +25,8 @@ module PocketMoneyCreator
       amount = invite_award.indirect_award
       create_direct_invite_money(user: params[:target], target: params[:second_target] )
       create({option_type: 'invite', amount: amount}.merge(params))
+      params[:user].increase_indirect_invite_count
+      params[:user].increase_indirect_invite_money(amount)
       params[:user].increase_pocket_money(amount)
     end
   end

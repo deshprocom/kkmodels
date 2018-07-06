@@ -21,6 +21,30 @@ module UserCountable
   def increase_pocket_money(by)
     counter.increment!(:total_pocket_money, by)
   end
+
+  def increase_direct_invite_count
+    counter.increment!(:direct_invite_count)
+  end
+
+  def increase_indirect_invite_count
+    counter.increment!(:indirect_invite_count)
+  end
+
+  def increase_direct_invite_money(by)
+    counter.increment!(:direct_invite_money, by)
+  end
+
+  def increase_indirect_invite_money(by)
+    counter.increment!(:indirect_invite_money, by)
+  end
+
+  def total_invite_money
+    counter.direct_invite_money + counter.indirect_invite_money
+  end
+
+  def total_invite_count
+    counter.direct_invite_count + counter.indirect_invite_count
+  end
 end
 
 
