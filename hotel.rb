@@ -2,6 +2,11 @@ class Hotel < ApplicationRecord
   include Publishable
   mount_uploader :logo, ImageUploader
 
+  REGIONS_MAP = {
+    'dangzai' => '氹仔区',
+    'aomenbandao' => '澳门半岛',
+  }.freeze
+  validates :region, inclusion: { in: REGIONS_MAP.keys }, allow_blank: true
   validates :logo, presence: true, if: :new_record?
   has_many  :comments, as: :target, dependent: :destroy
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
