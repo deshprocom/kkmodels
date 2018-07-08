@@ -28,4 +28,8 @@ class Hotel < ApplicationRecord
   def total_comments
     comments_count + replies_count
   end
+
+  def amap_navigation_url
+    "https://uri.amap.com/navigation?to=#{amap_location},#{title}&src=kkapi&callnative=1"
+  end
 end
