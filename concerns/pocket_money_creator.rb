@@ -5,7 +5,7 @@ module PocketMoneyCreator
 
   module ClassMethods
     def new_user_register_award(user)
-      return unless user.new_user?
+      return if !user.new_user? || user.r_level.zero?
 
       award_first_level_register(user) if user.r_level.eql?(1) # 1级用户完成任务
       award_second_level_register(user) if user.r_level.eql?(2) # 2级用户完成任务
