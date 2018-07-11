@@ -72,6 +72,6 @@ class User < ApplicationRecord
   
   def get_pocket_moneys
     # 登录满7天并且分享次数大于2
-    new_user_register_award(self) if counter.login_days >= 7 && counter.share_count >= 2
+    PocketMoney.new_user_register_award(self) if counter.login_days >= 7 && counter.share_count >= 2
   end
 end
