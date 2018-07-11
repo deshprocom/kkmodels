@@ -11,7 +11,7 @@ class Hotel < ApplicationRecord
   has_many  :comments, as: :target, dependent: :destroy
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
   has_many  :hotel_rooms
-  has_many  :room_price, class_name: 'HotelRoomPrice'
+  has_many  :room_prices, class_name: 'HotelRoomPrice'
   has_many  :published_rooms, -> { where(published: true) }, class_name: 'HotelRoom'
 
   scope :user_visible, -> { where(published: true).order(id: :desc) }
@@ -25,5 +25,9 @@ class Hotel < ApplicationRecord
 
   def total_comments
     comments_count + replies_count
+  end
+
+  def wday_min_price(wday)
+    room_prices.order(price: :asc).find_by(wday: wday)
   end
 end

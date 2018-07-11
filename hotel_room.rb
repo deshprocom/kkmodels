@@ -3,7 +3,7 @@ class HotelRoom < ApplicationRecord
 
   belongs_to :hotel
 
-  has_many :cwday_prices,
+  has_many :wday_prices,
           -> { where is_master: true },
           class_name: 'HotelRoomPrice'
 
