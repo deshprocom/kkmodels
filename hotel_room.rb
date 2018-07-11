@@ -2,10 +2,14 @@ class HotelRoom < ApplicationRecord
   include Publishable
 
   belongs_to :hotel
-  has_one :master,
+
+  has_many :cwday_prices,
           -> { where is_master: true },
           class_name: 'HotelRoomPrice'
-  accepts_nested_attributes_for :master, update_only: true
+
+  HotelRoomPrice::WDAYS.each do |wday|
+    has_one "#{wday}_price".to_sym, -> { where(is_master: true, wday: wday) }, class_name: 'HotelRoomPrice'
+  end
 
   has_many :prices,
            -> { where(is_master: false).order(date: :asc) },
