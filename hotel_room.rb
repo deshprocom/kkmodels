@@ -15,9 +15,9 @@ class HotelRoom < ApplicationRecord
   # priceable
   has_many :hotel_room_prices, dependent: :delete_all
   has_many :wday_prices, -> { where is_master: true }, class_name: 'HotelRoomPrice'
-  has_many :prices,
-           -> { where(is_master: false).order(date: :asc) },
-           class_name: 'HotelRoomPrice'
+  has_many :prices, -> { where(is_master: false).order(date: :asc) }, class_name: 'HotelRoomPrice'
+  # 重复了 room_prices 是为了使用activeadmin的 admin/room_prices#index 方法
+  has_many :room_prices, -> { where(is_master: false) }, class_name: 'HotelRoomPrice'
   HotelRoomPrice::WDAYS.each do |wday|
     has_one "#{wday}_price".to_sym,
             -> { where(is_master: true, wday: wday) },

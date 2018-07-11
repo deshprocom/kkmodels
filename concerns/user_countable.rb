@@ -10,6 +10,18 @@ module UserCountable
     counter.increment!(:share_count)
   end
 
+  def increase_login_days
+    counter.increment!(:login_days)
+  end
+
+  def increase_continuous_login_days
+    counter.increment!(:continuous_login_days)
+  end
+
+  def clear_continuous_login_days
+    counter.update(continuous_login_days: 0)
+  end
+
   def increase_points(by)
     counter.increment!(:points, by)
   end
