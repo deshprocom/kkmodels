@@ -61,4 +61,8 @@ class User < ApplicationRecord
   def display_name
     nick_name
   end
+
+  def p_user
+    user_relation.p_user.user
+  end
 end

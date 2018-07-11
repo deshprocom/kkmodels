@@ -3,6 +3,16 @@ module IntegralCreator
   extend ActiveSupport::Concern
 
   module ClassMethods
+    # params: { user: 用户, points: 积分}
+    def create_register_to_integral(params)
+      create_params = {
+          option_type: 'register',
+          category: 'register',
+          mark: '任务奖励',
+      }.merge(params)
+      create_record(create_params)
+    end
+
     # params: { user: 用户, target: 目标优惠券, points: 积分 }
     def create_integral_to_coupon(params)
       create_params = {
