@@ -30,12 +30,11 @@ class Hotel < ApplicationRecord
     comments_count + replies_count
   end
 
-<<<<<<< HEAD
-  def wday_min_price(wday)
-    room_prices.order(price: :asc).find_by(wday: wday)
-=======
   def amap_navigation_url
     "https://uri.amap.com/navigation?to=#{amap_location},#{title}&src=kkapi&callnative=1"
->>>>>>> bcda7d9b86b2ad9de16d84913a7d4221ab1838d9
+  end
+
+  def wday_min_price(wday)
+    room_prices.order(price: :asc).find_by(wday: wday)
   end
 end
