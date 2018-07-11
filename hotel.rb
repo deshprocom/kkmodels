@@ -12,13 +12,9 @@ class Hotel < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy, class_name: 'AdminImage'
   has_many :hotel_rooms
   has_many :published_rooms, -> { where(published: true) }, class_name: 'HotelRoom'
-  has_many :room_prices, class_name: 'HotelRoomPrice'
-
   scope :user_visible, -> { where(published: true) }
   scope :search_keyword, -> (keyword) { where('title like ?', "%#{keyword}%") }
   scope :where_region, -> (region) { where(region: region) }
-  scope :price_desc, -> { order(start_price: :desc) }
-  scope :price_asc, -> { order(start_price: :asc) }
 
   def preview_logo
     return '' if logo&.url.nil?
@@ -34,7 +30,27 @@ class Hotel < ApplicationRecord
     "https://uri.amap.com/navigation?to=#{amap_location},#{title}&src=kkapi&callnative=1"
   end
 
+  # priceable
+  has_many :room_prices, class_name: 'HotelRoomPrice'
+  scope :price_desc, -> (date) { order(s_wday_price(date) => :desc) }
+  scope :price_asc, -> (date) { order(s_wday_price(date) => :asc) }
+
+  def self.s_wday_price(date)
+    "#{HotelRoomPrice::WDAYS[date.wday]}_min_price"
+  end
+
   def wday_min_price(wday)
-    room_prices.order(price: :asc).find_by(wday: wday)
+    room_prices.order(price: :asc).find_by(wday: wday, is_master: true)
+  end
+  
+  def date_min_price(date)
+    room_prices.order(price: :asc).find_by(date: date, is_master: false)
+  end
+
+  def min_price(date)
+    [
+      date_min_price(date)&.price,
+      self.send(Hotel.s_wday_price date)
+    ].compact.min
   end
 end
