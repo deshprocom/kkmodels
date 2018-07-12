@@ -27,9 +27,7 @@ module PocketMoneyCreator
       amount = register_amount
       # 自己有一个现金红包
       create(register_params(user, amount))
-      p amount
       user.increase_pocket_money(amount)
-      p 2
       # 他的上级可以获得一份现金奖励
       create_direct_invite_money(user: user.p_user, target: user)
     end
@@ -62,7 +60,7 @@ module PocketMoneyCreator
       return if invite_award.blank? || !invite_award.published?
 
       amount = invite_award.direct_award
-      create({option_type: 'invite', amount: amount}.merge(params))
+      create({ option_type: 'invite', amount: amount }.merge(params))
       params[:user].increase_direct_invite_count
       params[:user].increase_direct_invite_money(amount)
       params[:user].increase_pocket_money(amount)
@@ -75,8 +73,8 @@ module PocketMoneyCreator
       return if invite_award.blank? || !invite_award.published?
 
       amount = invite_award.indirect_award
-      create_direct_invite_money(user: params[:target], target: params[:second_target] )
-      create({option_type: 'invite', amount: amount}.merge(params))
+      create_direct_invite_money(user: params[:target], target: params[:second_target])
+      create({ option_type: 'invite', amount: amount }.merge(params))
       params[:user].increase_indirect_invite_count
       params[:user].increase_indirect_invite_money(amount)
       params[:user].increase_pocket_money(amount)
