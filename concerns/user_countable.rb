@@ -34,6 +34,18 @@ module UserCountable
     counter.increment!(:total_pocket_money, by)
   end
 
+  def decrease_pocket_money(by)
+    counter.decrement!(:total_pocket_money, by)
+  end
+
+  def increase_freeze_pocket_money(by)
+    counter.increment!(:freeze_pocket_money, by)
+  end
+
+  def decrease_freeze_pocket_money(by)
+    counter.decrement!(:freeze_pocket_money, by)
+  end
+
   def increase_direct_invite_count
     counter.increment!(:direct_invite_count)
   end
