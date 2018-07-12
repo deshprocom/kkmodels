@@ -24,11 +24,11 @@ class HotelRoom < ApplicationRecord
             class_name: 'HotelRoomPrice'
   end
 
-  def self.s_current_wday_price
-    "#{HotelRoomPrice::WDAYS[Date.current.wday]}_price"
+  def self.s_wday_price(date)
+    "#{HotelRoomPrice::WDAYS[date.wday]}_price"
   end
 
-  def current_wday_price
-    self.send(HotelRoom.s_current_wday_price)
+  def wday_price(date)
+    self.send(HotelRoom.s_wday_price date)
   end
 end
