@@ -6,7 +6,7 @@ module MobileValidator
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def mobile_valid?(mobile, ext=nil)
+    def mobile_valid?(mobile, ext = nil)
       return true if ext.present? && !ext.eql?('86') # 只有大陆的手机号检查格式
 
       str_mobile = mobile.to_s

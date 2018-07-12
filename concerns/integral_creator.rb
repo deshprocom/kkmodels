@@ -6,9 +6,9 @@ module IntegralCreator
     # params: { user: 用户, points: 积分}
     def create_register_to_integral(params)
       create_params = {
-          option_type: 'register',
-          category: 'register',
-          mark: '任务奖励',
+        option_type: 'register',
+        category: 'register',
+        mark: '任务奖励',
       }.merge(params)
       create_record(create_params)
     end

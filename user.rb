@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :coupons, dependent: :destroy
   has_one  :user_relation, dependent: :destroy
   has_many :pocket_moneys, dependent: :destroy
+  has_many :withdrawals, dependent: :destroy
 
   action_store :like,     :topic, counter_cache: true
   action_store :like,     :info,  counter_cache: true
@@ -36,7 +37,7 @@ class User < ApplicationRecord
   # 刷新访问时间
   # 统计登录天数和连续登录天数
   def touch_visit!
-    interval_day = (Date.today - last_visit.to_date).to_i
+    interval_day = (Time.zone.today - last_visit.to_date).to_i
     increase_login_days if interval_day >= 1
     interval_day.eql?(1) ? increase_continuous_login_days : clear_continuous_login_days
     self.last_visit = Time.zone.now
@@ -70,7 +71,7 @@ class User < ApplicationRecord
     user_relation.p_user.user
   end
   
-  def get_pocket_moneys
+  def take_pocket_moneys
     # 登录满7天并且分享次数大于2
     PocketMoney.new_user_register_award(self) if counter.login_days >= 7 && counter.share_count >= 2
   end
