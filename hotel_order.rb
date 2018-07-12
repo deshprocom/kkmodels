@@ -23,6 +23,15 @@ class HotelOrder < ApplicationRecord
   PAY_CHANNELS = %w[weixin ali].freeze
   validates :pay_channel, inclusion: { in: PAY_CHANNELS }
 
+  before_update :send_email_after_paid
+
+  def send_email_after_paid
+    p 'test==='
+    return unless pay_status_was == 'unpaid' && pay_status == 'paid'
+
+    OrderMailer.notice_staff_after_paid(self).deliver_later
+  end
+
   def total_price_from_items
     @total_price_from_items ||= room_items.map { |i| i['price'].to_f }.sum
   end
@@ -57,5 +66,13 @@ class HotelOrder < ApplicationRecord
     return false if unpaid? || refunded? || recent_refund&.refund_status == 'pending'
 
     true
+  end
+
+  TRANS_PAY_CHANNELS = {
+    weixin: '微信支付',
+    ali: '支付宝'
+  }.freeze
+  def pay_channel_text
+    TRANS_PAY_CHANNELS[pay_channel.to_sym]
   end
 end
