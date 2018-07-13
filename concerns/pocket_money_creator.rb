@@ -11,7 +11,7 @@ module PocketMoneyCreator
       award_second_level_register(user) if user.r_level.eql?(2) # 2级用户完成任务
       award_third_level_register(user) if user.r_level.eql?(3) # 3级用户完成任务
       # 奖励下发完成 将用户标记为老用户
-      user.update(new_user: false)
+      user.mark_to_old_user!
     end
 
     # 奖励1级用户注册的
