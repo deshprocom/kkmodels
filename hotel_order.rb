@@ -9,7 +9,6 @@ class HotelOrder < ApplicationRecord
   has_one :coupon, as: :target
 
   serialize :room_items, JSON
-
   enum status: { unpaid: 'unpaid',
                  paid: 'paid',
                  confirmed: 'confirmed',

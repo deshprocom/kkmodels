@@ -11,4 +11,9 @@ class HotelRoomPrice < ApplicationRecord
   after_initialize do
     self.date ||= Date.current unless is_master
   end
+
+  # 每天剩余可售卖的数量
+  def saleable_num
+    room_num_limit - room_sales
+  end
 end
