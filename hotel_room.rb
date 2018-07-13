@@ -1,4 +1,6 @@
 class HotelRoom < ApplicationRecord
+  attr_accessor :room_num_limit # 用于activeadmin的方法 t.input(room_num_limit)
+
   include Publishable
 
   belongs_to :hotel
@@ -30,5 +32,10 @@ class HotelRoom < ApplicationRecord
 
   def wday_price(date)
     self.send(HotelRoom.s_wday_price date)
+  end
+
+  # 默认的 wday的room_num_list 都是一样的
+  def room_num_limit
+    @room_num_limit ||= wday_prices.first.room_num_limit
   end
 end
