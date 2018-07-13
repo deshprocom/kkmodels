@@ -35,11 +35,10 @@ class User < ApplicationRecord
   action_store :follow,   :user,  counter_cache: 'followers_count', user_counter_cache: 'following_count'
 
   # 刷新访问时间
-  # 统计登录天数和连续登录天数
+  # 统计登录天数
   def touch_visit!
     interval_day = (Time.zone.today - last_visit.to_date).to_i
     increase_login_days if interval_day >= 1
-    interval_day.eql?(1) ? increase_continuous_login_days : clear_continuous_login_days
     self.last_visit = Time.zone.now
     save
   end
