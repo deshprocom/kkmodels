@@ -15,7 +15,7 @@ module PocketMoneyCreator
     end
 
     # 奖励1级用户注册的
-    # 现金红包随机 1.88 1.98 2.68 2.88
+    # 现金红包随机 1.88 1.98 2.08 2.18 2.28
     def award_first_level_register(user)
       amount = register_amount
       create(register_params(user, amount))
@@ -43,7 +43,7 @@ module PocketMoneyCreator
 
     # 注册送的现金或积分 数字随机
     def register_amount(level = 1)
-      amount = %w[1.88 1.98 2.88 2.98].sample
+      amount = %w[1.88 1.98 2.08 2.18 2.28].sample
       level.eql?(1) ? BigDecimal(amount) : BigDecimal(amount) * 100
     end
 
