@@ -32,10 +32,10 @@ class Hotel < ApplicationRecord
 
   # priceable
   has_many :room_prices, class_name: 'HotelRoomPrice'
-  scope :price_desc, -> (date) { order(s_wday_price(date) => :desc) }
-  scope :price_asc, -> (date) { order(s_wday_price(date) => :asc) }
+  scope :price_desc, -> (date) { order(s_wday_min_price(date) => :desc) }
+  scope :price_asc, -> (date) { order(s_wday_min_price(date) => :asc) }
 
-  def self.s_wday_price(date)
+  def self.s_wday_min_price(date)
     "#{HotelRoomPrice::WDAYS[date.wday]}_min_price"
   end
 
@@ -47,10 +47,8 @@ class Hotel < ApplicationRecord
     room_prices.order(price: :asc).find_by(date: date, is_master: false)
   end
 
+  # 如果没有当天的最低价，则默认当天周几的最低价
   def min_price(date)
-    [
-      date_min_price(date)&.price,
-      self.send(Hotel.s_wday_price date)
-    ].compact.min
+    date_min_price(date)&.price || Hotel.s_wday_min_price(date)
   end
 end
