@@ -16,4 +16,8 @@ class HotelRoomPrice < ApplicationRecord
   def saleable_num
     room_num_limit - room_sales
   end
+
+  def increase_sales(by)
+    increment!(:room_sales, by)
+  end
 end
