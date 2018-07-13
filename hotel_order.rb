@@ -9,7 +9,6 @@ class HotelOrder < ApplicationRecord
   has_one :coupon, as: :target
 
   serialize :room_items, JSON
-
   enum status: { unpaid: 'unpaid',
                  paid: 'paid',
                  confirmed: 'confirmed',
@@ -65,24 +64,5 @@ class HotelOrder < ApplicationRecord
   }.freeze
   def pay_channel_text
     TRANS_PAY_CHANNELS[pay_channel.to_sym]
-  end
-
-  # notifiable
-  before_update :notify_after_paid
-  def notify_after_paid
-    return unless pay_status_was == 'unpaid' && pay_status == 'paid'
-
-    notify_user_after_paid
-    OrderMailer.notify_staff_after_paid(self).deliver_later
-  end
-
-  # "[澳门旅行]预定成功:澳门金沙城中心假日酒店7月14日入住假日高级房2间1晚，入住人请携带有效证件及入境标签联系客服：#{ENV['HOTEL_STAFF_TEL']}办理入住。"
-  NOTICE_USER_AFTER_PAID_SMS = "[澳门旅行]预定成功:%s，入住人请携带有效证件及入境标签联系客服: #{ENV['HOTEL_STAFF_TEL']} 办理入住。"
-  def notify_user_after_paid
-    # 酒店订单支付后，短信通知用户
-    date = checkin_date.strftime('%m月%d日')
-    title = "#{hotel_room.hotel.title}#{date}入住#{hotel_room.title}#{room_num}间#{nights_num}晚"
-    sms_content = format(NOTICE_USER_AFTER_PAID_SMS, title)
-    SendMobileIsmsJob.perform_later(telephone, sms_content)
   end
 end
