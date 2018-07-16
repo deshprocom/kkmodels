@@ -13,7 +13,7 @@ module Shop
               as: :imageable,
               dependent: :destroy,
               class_name: 'Image'
-    has_one :counter, class_name: 'ProductCounter'
+    has_one :counter, class_name: 'ProductCounter', dependent: :destroy
 
     validates :title, presence: true
     attr_accessor :root_category
@@ -21,6 +21,7 @@ module Shop
     scope :recommended, -> { where(recommended: true) }
     scope :published, -> { where(published: true) }
     scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
+    scope :position_desc, -> { order(position: :desc) }
 
     if ENV['CURRENT_PROJECT'] == 'kkcms'
       ransacker :by_root_category, formatter: proc { |v|
