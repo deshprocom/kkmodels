@@ -51,7 +51,7 @@ module PocketMoneyCreator
       { user: user, option_type: 'register', amount: amount }
     end
    
-  # ------分销奖励-------
+    # ------分销奖励-------
     
     # 直接邀请 系统给邀请用户1元钱, user邀请了user2
     # params -> { user: user, target: user2 }
@@ -89,8 +89,8 @@ module PocketMoneyCreator
       amount = params[:amount]
       if status.eql?('pending') # 用户申请提现
         create(user: user, target: params[:target], option_type: 'withdraw_pending', amount: -amount)
-        @user.decrease_pocket_money(@amount)
-        @user.increase_freeze_pocket_money(@amount)
+        user.decrease_pocket_money(amount)
+        user.increase_freeze_pocket_money(amount)
       elsif status.eql?('success') # 提现成功
         # create(user: user, target: params[:target], option_type: 'withdraw_success', amount: -amount)
         user.decrease_freeze_pocket_money(amount)
