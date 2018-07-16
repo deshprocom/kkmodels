@@ -1,6 +1,7 @@
 module Shop
   class Category < Shop::Base
     has_many :products
+    scope :position_desc, -> { unscope(:order).order(position: :desc) }
 
     validates :name, presence: true
     mount_uploader :image, ImageUploader
