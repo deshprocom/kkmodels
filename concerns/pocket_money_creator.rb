@@ -51,7 +51,7 @@ module PocketMoneyCreator
       { user: user, option_type: 'register', amount: amount }
     end
    
-  # ------分销奖励-------
+    # ------分销奖励-------
     
     # 直接邀请 系统给邀请用户1元钱, user邀请了user2
     # params -> { user: user, target: user2 }
@@ -78,6 +78,27 @@ module PocketMoneyCreator
       params[:user].increase_indirect_invite_count
       params[:user].increase_indirect_invite_money(amount)
       params[:user].increase_pocket_money(amount)
+    end
+
+    # 提现记录
+    # params -> { user: 提现的用户, target: 提款单, status: 'success | failed', amount: '' }
+    def create_withdraw_record(params)
+      status = params[:status]
+      # 不管是否提现成功 都要解除用户被冻结的资金
+      user = params[:user]
+      amount = params[:amount]
+      if status.eql?('pending') # 用户申请提现
+        create(user: user, target: params[:target], option_type: 'withdraw_pending', amount: -amount)
+        user.decrease_pocket_money(amount)
+        user.increase_freeze_pocket_money(amount)
+      elsif status.eql?('success') # 提现成功
+        # create(user: user, target: params[:target], option_type: 'withdraw_success', amount: -amount)
+        user.decrease_freeze_pocket_money(amount)
+      else # 提现失败 把用户的钱加上去
+        create(user: user, target: params[:target], option_type: 'withdraw_failed', amount: amount)
+        user.decrease_freeze_pocket_money(amount)
+        user.increase_pocket_money(amount)
+      end
     end
   end
 end

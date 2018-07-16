@@ -1,7 +1,7 @@
 ##
 # API访问令牌
 # 每次成功调用 登录 / 注册 接口, 都会为该调用生成新的访问令牌, 用于后续的接口访问时的身份识别;
-# 令牌默认有效期为7天
+# 令牌默认有效期为30天
 class UserToken
   # 生成jwt token
   def self.encode(user_uuid, exp = expire_time)
@@ -21,6 +21,6 @@ class UserToken
   end
 
   def self.expire_time
-    7.days.since.to_i
+    30.days.since.to_i
   end
 end
