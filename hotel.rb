@@ -15,6 +15,7 @@ class Hotel < ApplicationRecord
   scope :user_visible, -> { where(published: true) }
   scope :search_keyword, -> (keyword) { where('title like ?', "%#{keyword}%") }
   scope :where_region, -> (region) { where(region: region) }
+  scope :position_desc, -> { order(position: :desc) }
 
   def preview_logo
     return '' if logo&.url.nil?
