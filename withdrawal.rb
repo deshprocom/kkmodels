@@ -11,6 +11,14 @@ class Withdrawal < ApplicationRecord
 
   # 审核操作
   def admin_change_status(status, by_admin)
+    # 只有审核中的可以操作
+    return unless option_status.eql?('pending')
+    # 记录明细
+    PocketMoney.create_withdraw_record(user: self.user,
+                                       target: self,
+                                       status: status,
+                                       amount: BigDecimal(self.amount))
+    # 更改状态
     update(option_status: status,
            option_time: Time.zone.now,
            memo: "#{by_admin}更改状态：#{option_status} -> #{status}")
