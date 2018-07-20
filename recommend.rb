@@ -5,7 +5,7 @@ class Recommend < ApplicationRecord
   scope :position_desc, -> { order(position: :desc) }
 
   def source
-    @source ||= source_id && source_type.classify.safe_constantize.find(source_id)
+    @source ||= source_id && source_type.classify.safe_constantize.find_by(id: source_id)
   end
 
   def source_title

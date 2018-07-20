@@ -36,6 +36,6 @@ class HotelRoom < ApplicationRecord
 
   # 默认的 wday的room_num_list 都是一样的
   def room_num_limit
-    @room_num_limit ||= wday_prices.first.room_num_limit
+    @room_num_limit ||= wday_prices.first&.room_num_limit
   end
 end
