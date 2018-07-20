@@ -38,7 +38,7 @@ class User < ApplicationRecord
   # 统计登录天数
   def touch_visit!
     interval_day = (Time.zone.today - last_visit.to_date).to_i
-    increase_login_days if interval_day >= 1
+    increase_login_days if interval_day >= 1 || counter.login_days.zero?
     self.last_visit = Time.zone.now
     save
   end
