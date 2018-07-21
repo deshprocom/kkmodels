@@ -23,6 +23,16 @@ module Shop
     def refunded?
       refunded
     end
+
+    # 是否可以申请退换货
+    def can_returnable?
+      # 是否支持退换货
+      return false unless returnable
+      # 最近一个申请退换货的状态为pending或者completed,则不能退换
+      return false if recent_return&.return_status.in?(%w[pending completed])
+
+      true
+    end
   end
 end
 
