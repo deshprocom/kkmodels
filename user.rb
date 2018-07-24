@@ -79,8 +79,4 @@ class User < ApplicationRecord
     update(new_user: false)
     user_relation.update(new_user: false)
   end
-
-  def generate_zero_level?
-    level_special.eql? 'g_zero'
-  end
 end
