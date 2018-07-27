@@ -43,9 +43,11 @@ class Hotel < ApplicationRecord
   def wday_min_price(wday)
     room_prices.order(price: :asc).find_by(wday: wday, is_master: true)
   end
-  
+
+  # 当前日期最低价格，剔除未发布的
   def date_min_price(date)
-    room_prices.order(price: :asc).find_by(date: date, is_master: false)
+    room_prices.joins(:hotel_room).order(price: :asc)
+      .find_by(hotel_rooms: { published: true }, date: date, is_master: false)
   end
 
   def default_wday_price(date)
