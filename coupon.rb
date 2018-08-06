@@ -51,4 +51,8 @@ class Coupon < ApplicationRecord
 
     0.0
   end
+
+  def self.user_received?(user_id, coupon_temp_id)
+    exists?(user_id: user_id, coupon_temp_id: coupon_temp_id)
+  end
 end
