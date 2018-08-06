@@ -67,7 +67,7 @@ class User < ApplicationRecord
   end
 
   def p_user
-    user_relation.p_user.user
+    user_relation.p_user&.user
   end
   
   def take_pocket_moneys

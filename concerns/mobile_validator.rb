@@ -1,7 +1,7 @@
 # 手机格式验证器
 module MobileValidator
   # 有效手机号格式
-  MOBILE_VALID_FORMAT_REGEX = /^1[345678]\d{9}$/
+  MOBILE_VALID_FORMAT_REGEX = /^1[3456789]\d{9}$/
 
   extend ActiveSupport::Concern
 

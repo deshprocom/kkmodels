@@ -38,6 +38,10 @@ module UserCountable
     counter.decrement!(:freeze_pocket_money, by)
   end
 
+  def increase_invite_users
+    counter.increment!(:invite_users)
+  end
+
   def increase_direct_invite_count
     counter.increment!(:direct_invite_count)
   end
