@@ -3,7 +3,7 @@ class CouponTemp < ApplicationRecord
   has_many :coupons, dependent: :destroy
   mount_uploader :cover_link, ImageUploader
 
-  enum coupon_type: { hotel: 'hotel', shop: 'shop' }
+  enum coupon_type: { hotel: 'hotel', shop: 'shop', offline_store: 'offline_store' }
   enum discount_type: { reduce: 'reduce', full_reduce: 'full_reduce', rebate: 'rebate' }
 
   scope :published, -> { where(published: true) }
