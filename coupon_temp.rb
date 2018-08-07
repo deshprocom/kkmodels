@@ -32,4 +32,12 @@ class CouponTemp < ApplicationRecord
 
     cover_link.url(:md)
   end
+
+  def begin_date
+    Date.current.strftime('%Y-%m-%d')
+  end
+  
+  def end_date
+    (Date.current + expire_day.days).strftime('%Y-%m-%d')
+  end
 end
