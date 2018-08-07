@@ -32,7 +32,7 @@ class Info < ApplicationRecord
   end
 
   def coupon_ids_valid?
-    coupon_ids.split(',').each do |id|
+    coupon_ids.to_s.split(',').each do |id|
       return errors.add(:coupon_ids, '优惠券id无效') unless CouponTemp.exists?(id: id)
     end
   end
