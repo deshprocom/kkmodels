@@ -49,7 +49,7 @@ module PocketMoneyCreator
 
     def register_amount(level = 1)
       amount = generate_award_money(Random.rand(1..100))
-      level.eql?(1) ? BigDecimal(amount) : BigDecimal(amount) * 100
+      level.eql?(1) ? amount : amount * 100
     end
 
     def register_params(user, amount)
