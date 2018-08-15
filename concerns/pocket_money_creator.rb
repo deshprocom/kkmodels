@@ -42,8 +42,13 @@ module PocketMoneyCreator
     end
 
     # 注册送的现金或积分 数字随机
+    # def register_amount(level = 1)
+    #   amount = %w[1.88 1.98 2.08 2.18 2.28].sample
+    #   level.eql?(1) ? BigDecimal(amount) : BigDecimal(amount) * 100
+    # end
+
     def register_amount(level = 1)
-      amount = %w[1.88 1.98 2.08 2.18 2.28].sample
+      amount = generate_award_money(Random.rand(1..100))
       level.eql?(1) ? BigDecimal(amount) : BigDecimal(amount) * 100
     end
 
@@ -98,6 +103,21 @@ module PocketMoneyCreator
         create(user: user, target: params[:target], option_type: 'withdraw_failed', amount: amount)
         user.decrease_freeze_pocket_money(amount)
         user.increase_pocket_money(amount)
+      end
+    end
+
+    # 根据随机数 生成相应的金额
+    def generate_award_money(number)
+      if (1..60).include? number
+        5.18
+      elsif (61..80).include? number
+        5.88
+      elsif (81..90).include? number
+        6.88
+      elsif (91..95).include? number
+        7.88
+      elsif (96..100).include? number
+        8.88
       end
     end
   end
