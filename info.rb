@@ -31,6 +31,14 @@ class Info < ApplicationRecord
     comments_count + replies_count
   end
 
+  def increase_page_views
+    increment!(:page_views)
+  end
+
+  def total_views
+    page_views + view_increment
+  end
+
   def coupon_ids_valid?
     coupon_ids.to_s.split(',').each do |id|
       return errors.add(:coupon_ids, '优惠券id无效') unless CouponTemp.exists?(id: id)
