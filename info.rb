@@ -36,6 +36,10 @@ class Info < ApplicationRecord
     increment!(:page_views)
   end
 
+  def increase_view_increment(by)
+    increment!(:view_increment, by)
+  end
+
   def total_views
     page_views + view_increment
   end
