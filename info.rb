@@ -8,6 +8,7 @@ class Info < ApplicationRecord
 
   belongs_to :info_type
   has_many   :comments, as: :target, dependent: :destroy
+  has_one :view_toggle, as: :target, dependent: :destroy
   scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
 
   after_initialize do
