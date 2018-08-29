@@ -79,4 +79,10 @@ class User < ApplicationRecord
     update(new_user: false)
     user_relation.update(new_user: false)
   end
+
+  def usable_hotel_coupons
+    @usable_hotel_coupons ||= coupons.unused
+                                     .includes(:coupon_temp)
+                                     .where(coupon_temps: {coupon_type: :hotel})
+  end
 end
