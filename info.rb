@@ -8,6 +8,7 @@ class Info < ApplicationRecord
 
   belongs_to :info_type
   has_many   :comments, as: :target, dependent: :destroy
+  has_one :view_toggle, as: :target, dependent: :destroy
   scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
 
   after_initialize do
@@ -33,6 +34,10 @@ class Info < ApplicationRecord
 
   def increase_page_views
     increment!(:page_views)
+  end
+
+  def increase_view_increment(by)
+    increment!(:view_increment, by)
   end
 
   def total_views
