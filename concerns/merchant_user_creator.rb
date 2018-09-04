@@ -3,9 +3,9 @@ module MerchantUserCreator
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def create_by_mobile(mobile, ext, nick_name)
+    def create_by_mobile(mobile, ext)
       ext ||= '86'
-      user_attrs = new_user_attributes(mobile: mobile, ext: ext, nick_name: nick_name)
+      user_attrs = new_user_attributes(mobile: mobile, ext: ext)
       MerchantUser.create(user_attrs)
     end
 
