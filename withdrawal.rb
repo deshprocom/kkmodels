@@ -10,6 +10,8 @@ class Withdrawal < ApplicationRecord
   end
   
   # 审核操作
+  WITHDRAWAL_SUCCESS_TEMP = '【澳门旅行APP】尊敬的用户，您申请提现%s元已完成。感谢您对澳门旅行app的信任！如需帮助，请拨打客服电话：%s'.freeze
+  WITHDRAWAL_FAILED_TEMP = '【澳门旅行APP】尊敬的用户，您申请提现%s元失败，请登录澳门旅行app检查您所填写资料信息是否正确。感谢您对澳门旅行app的信任！如需帮助，请拨打客服电话：%s'.freeze
   def admin_change_status(status, by_admin)
     # 只有审核中的可以操作
     return unless option_status.eql?('pending')
@@ -22,5 +24,15 @@ class Withdrawal < ApplicationRecord
     update(option_status: status,
            option_time: Time.zone.now,
            memo: "#{by_admin}更改状态：#{option_status} -> #{status}")
+
+    # 提现成功短信通知
+    if status.eql?('success')
+      SendMobileIsmsJob.perform_later(user.mobile, format(WITHDRAWAL_SUCCESS_TEMP, BigDecimal(amount), ENV['OFFICIAL_TEL']))
+    end
+
+    # 提现失败短信通知
+    if status.eql?('failed')
+      SendMobileIsmsJob.perform_later(user.mobile, format(WITHDRAWAL_FAILED_TEMP, BigDecimal(amount), ENV['OFFICIAL_TEL']))
+    end
   end
 end
