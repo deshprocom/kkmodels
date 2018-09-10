@@ -9,15 +9,15 @@ class SaleRoomRequest < ApplicationRecord
 
   enum status: { pending: 'pending', 'passed': 'passed', 'refused': 'refused', canceled: 'canceled' }
 
-  def on_offer
+  def self.on_offer
     where(is_sold: false).where('checkin_date >= ?', Date.current).passed
   end
 
-  def sold
+  def self.sold
     where(is_sold: true).passed
   end
 
-  def unsold
+  def self.unsold
     where(is_sold: false).where('checkin_date < ?', Date.current).passed
   end
 
