@@ -3,6 +3,7 @@ class SaleRoomRequest < ApplicationRecord
   belongs_to :hotel
   belongs_to :hotel_room, foreign_key: :room_id
   belongs_to :merchant_user, foreign_key: :user_id
+  has_one :hotel_room_price
 
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
@@ -23,5 +24,14 @@ class SaleRoomRequest < ApplicationRecord
   CAN_CANCEL_STATUSES = %w[pending passed].freeze
   def can_cancel?
     status.in?(CAN_CANCEL_STATUSES) && !is_sold
+  end
+
+  def create_room_price
+    create_hotel_room_price(date: checkin_date,
+                            room_num_limit: 1,
+                            is_master: false,
+                            price: price,
+                            hotel_id: hotel_id,
+                            hotel_room_id: room_id)
   end
 end
