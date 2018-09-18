@@ -19,4 +19,8 @@ class MerchantUser < ApplicationRecord
   def increase_revenue(by)
     increment!(:revenue, by)
   end
+
+  def increase_withdrawal_amount(by)
+    increment!(:withdrawal_amount, by)
+  end
 end
