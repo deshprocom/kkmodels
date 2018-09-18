@@ -11,4 +11,8 @@ class MerchantUser < ApplicationRecord
   def self.mobile_exist?(mobile)
     by_mobile(mobile).present?
   end
+
+  def increase_revenue(by)
+    increment!(:revenue, by)
+  end
 end
