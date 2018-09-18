@@ -11,4 +11,8 @@ class MerchantUser < ApplicationRecord
   def self.mobile_exist?(mobile)
     by_mobile(mobile).present?
   end
+
+  def decrease_revenue(by)
+    decrement!(:revenue, by)
+  end
 end
