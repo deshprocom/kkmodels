@@ -4,6 +4,7 @@ class SaleRoomRequest < ApplicationRecord
   belongs_to :hotel_room, foreign_key: :room_id
   belongs_to :merchant_user, foreign_key: :user_id
   has_one :hotel_room_price
+  has_one :room_request_withdrawal
 
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
@@ -38,5 +39,16 @@ class SaleRoomRequest < ApplicationRecord
   def to_refund
     update(is_sold: false)
     merchant_user.decrease_revenue(price)
+  end
+
+  def to_sold
+    update(is_sold: true)
+    merchant_user.increase_revenue(price)
+  end
+
+  def withdrawn_status
+    return 'unsubmit' if room_request_withdrawal.nil?
+
+    room_request_withdrawal.status
   end
 end

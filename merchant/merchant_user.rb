@@ -15,4 +15,8 @@ class MerchantUser < ApplicationRecord
   def decrease_revenue(by)
     decrement!(:revenue, by)
   end
+
+  def increase_revenue(by)
+    increment!(:revenue, by)
+  end
 end

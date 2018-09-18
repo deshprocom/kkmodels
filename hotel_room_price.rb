@@ -13,6 +13,8 @@ class HotelRoomPrice < ApplicationRecord
     self.date ||= Date.current unless is_master
   end
 
+  scope :price_asc, -> { order(price: :asc) }
+
   # 每天剩余可售卖的数量
   def saleable_num
     room_num_limit - room_sales
