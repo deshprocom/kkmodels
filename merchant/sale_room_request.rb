@@ -36,6 +36,11 @@ class SaleRoomRequest < ApplicationRecord
                             hotel_room_id: room_id)
   end
 
+  def to_refund
+    update(is_sold: false)
+    merchant_user.decrease_revenue(price)
+  end
+
   def to_sold
     update(is_sold: true)
     merchant_user.increase_revenue(price)

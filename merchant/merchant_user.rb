@@ -12,7 +12,15 @@ class MerchantUser < ApplicationRecord
     by_mobile(mobile).present?
   end
 
+  def decrease_revenue(by)
+    decrement!(:revenue, by)
+  end
+
   def increase_revenue(by)
     increment!(:revenue, by)
+  end
+
+  def increase_withdrawal_amount(by)
+    increment!(:withdrawal_amount, by)
   end
 end

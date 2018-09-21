@@ -23,4 +23,8 @@ class HotelRoomPrice < ApplicationRecord
   def increase_sales(by)
     increment!(:room_sales, by)
   end
+
+  def decrease_sales(by)
+    decrement!(:room_sales, by)
+  end
 end
