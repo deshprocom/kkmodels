@@ -57,6 +57,6 @@ class Hotel < ApplicationRecord
 
   # 如果没有当天的最低价，则默认当天周几的最低价
   def min_price(date)
-    date_min_price(date)&.price || default_wday_price(date)
+    [date_min_price(date)&.price, default_wday_price(date)].compact.min
   end
 end
