@@ -35,7 +35,9 @@ module PocketMoneyCreator
     # 奖励3级用户的
     def award_third_level_register(user)
       # 自己有一份积分奖励
-      Integral.create_register_to_integral(user: user, points: register_amount(2))
+      # Integral.create_register_to_integral(user: user, points: register_amount(2)) // 暂时关闭
+      # 积分换成现金红包
+      create(register_params(user, register_amount))
       # 该用户的上一级是2级才会有奖励
       return unless user.p_user.r_level.eql?(2)
       create_indirect_invite_money(user: user.p_user.p_user, target: user.p_user, second_target: user)
