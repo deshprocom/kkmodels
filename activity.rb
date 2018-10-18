@@ -16,4 +16,25 @@ class Activity < ApplicationRecord
 
     banner.url(:md)
   end
+
+  # 活动的状态 报名中，进行中，已结束，已满员，已取消
+  def activity_status
+    if canceled
+      'canceled'
+    elsif begin_time > Time.zone.now
+      'no_start'
+    elsif Time.zone.now > end_time
+      'finished'
+    else
+      'doing'
+    end
+  end
+
+  def total_views
+    page_views + view_increment
+  end
+
+  def increase_page_views
+    increment!(:page_views)
+  end
 end
