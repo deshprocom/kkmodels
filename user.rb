@@ -4,6 +4,7 @@ class User < ApplicationRecord
   include UserNameGenerator
   include UserCreator
   include UserCountable
+  include User::Favorite
   mount_uploader :avatar, ImageUploader
   extend Geocoder::Model::ActiveRecord
   reverse_geocoded_by :lat, :lng
@@ -49,6 +50,10 @@ class User < ApplicationRecord
 
   def action_likes
     actions.where(action_type: 'like')
+  end
+
+  def action_favorites
+    actions.where(action_type: 'favorite')
   end
 
   def silenced!(reason, till)
