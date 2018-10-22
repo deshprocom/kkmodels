@@ -1,4 +1,6 @@
 class Sauna < ApplicationRecord
+  reverse_geocoded_by :latitude, :longitude
+
   include Publishable
   mount_uploader :logo, ImageUploader
 
