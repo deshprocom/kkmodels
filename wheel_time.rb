@@ -1,0 +1,2 @@
+class WheelTime < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class WheelPrizeCategory < ApplicationRecord
+end
