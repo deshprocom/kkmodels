@@ -1,2 +1,0 @@
-class WheelPrizeChange < ApplicationRecord
-end

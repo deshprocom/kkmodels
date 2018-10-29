@@ -1,2 +1,0 @@
-class WheelPrizeCategory < ApplicationRecord
-end

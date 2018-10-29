@@ -1,0 +1,2 @@
+class WheelElement < ApplicationRecord
+end

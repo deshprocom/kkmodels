@@ -1,0 +1,2 @@
+class WheelPrizeCount < ApplicationRecord
+end

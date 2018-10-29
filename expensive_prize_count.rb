@@ -1,0 +1,2 @@
+class ExpensivePrizeCount < ApplicationRecord
+end

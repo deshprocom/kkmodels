@@ -1,2 +1,0 @@
-class WheelTime < ApplicationRecord
-end
