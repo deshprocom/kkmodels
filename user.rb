@@ -29,6 +29,7 @@ class User < ApplicationRecord
   has_one  :user_relation, dependent: :destroy
   has_many :pocket_moneys, dependent: :destroy
   has_many :withdrawals, dependent: :destroy
+  has_one  :wheel_user_time, dependent: :destroy
 
   action_store :like,     :topic, counter_cache: true
   action_store :like,     :info,  counter_cache: true
