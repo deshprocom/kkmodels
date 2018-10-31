@@ -1,5 +1,6 @@
 class WheelPrize < ApplicationRecord
   belongs_to :wheel_element
+  has_many :cheap_prize_counts
 
   # validates :wheel_element, presence: true
 
