@@ -8,4 +8,8 @@ class WheelUserTime < ApplicationRecord
   def increase_today_times(by = 1)
     increment!(:today_times, by)
   end
+
+  def remain_times
+    total_times - today_times
+  end
 end
