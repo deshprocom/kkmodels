@@ -4,6 +4,7 @@ class User < ApplicationRecord
   include UserNameGenerator
   include UserCreator
   include UserCountable
+  include UserVisit
   include User::Favorite
   mount_uploader :avatar, ImageUploader
   extend Geocoder::Model::ActiveRecord
@@ -36,15 +37,6 @@ class User < ApplicationRecord
   action_store :like,     :info,  counter_cache: true
   action_store :like,     :hotel, counter_cache: true
   action_store :follow,   :user,  counter_cache: 'followers_count', user_counter_cache: 'following_count'
-
-  # 刷新访问时间
-  # 统计登录天数
-  def touch_visit!
-    interval_day = (Time.zone.today - last_visit.to_date).to_i
-    increase_login_days if interval_day >= 1 || counter.login_days.zero?
-    self.last_visit = Time.zone.now
-    save
-  end
 
   def avatar_path
     avatar.url.presence || wx_avatar
