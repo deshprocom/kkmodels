@@ -1,4 +1,5 @@
 class WheelPrize < ApplicationRecord
+  mount_uploader :image, ImageUploader
   belongs_to :wheel_element
   has_many :cheap_prize_counts
 
