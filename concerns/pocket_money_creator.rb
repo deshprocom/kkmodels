@@ -122,5 +122,12 @@ module PocketMoneyCreator
         8.88
       end
     end
+
+    # 转盘活动奖励现金
+    # params: { user: 用户, target: 目标奖品, amount: 金额 }
+    def create_wheel_pocket_money(params)
+      create({ user: params[:user], target: params[:target], option_type: 'wheel', amount: params[:amount] })
+      params[:user].increase_pocket_money(params[:amount])
+    end
   end
 end

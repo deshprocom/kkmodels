@@ -18,6 +18,10 @@ module PocketMoneyMemo
     '新用户注册活动奖励'
   end
 
+  def wheel_memo
+    '转盘抽奖活动奖励'
+  end
+
   def withdraw_pending_memo
     '用户提现'
   end

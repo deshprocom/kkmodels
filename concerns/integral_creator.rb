@@ -45,6 +45,18 @@ module IntegralCreator
       create_record(create_params)
     end
 
+    # 转盘活动奖励积分
+    # params: { user: 用户, target: 目标奖品, points: 积分 }
+    def create_wheel_integral(params)
+      create_params = {
+        option_type: 'wheel',
+        category: 'wheel',
+        points: params.delete(:points),
+        mark: '转盘抽奖'
+      }.merge(params)
+      create_record(create_params)
+    end
+
     def create_record(params, active = true)
       integral = create(params) # 创建记录
       integral.touch_active! if active # 激活不需要领取
