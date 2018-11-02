@@ -32,6 +32,7 @@ class User < ApplicationRecord
   has_many :withdrawals, dependent: :destroy
   has_one  :wheel_user_time, dependent: :destroy
   has_many :wheel_user_prizes, dependent: :destroy
+  has_many :wheel_task_counts, dependent: :destroy
 
   action_store :like,     :topic, counter_cache: true
   action_store :like,     :info,  counter_cache: true
@@ -68,10 +69,21 @@ class User < ApplicationRecord
   def p_user
     user_relation.p_user&.user
   end
-  
-  def take_pocket_moneys
-    # 登录满7天并且分享次数大于2
-    PocketMoney.new_user_register_award(self) if counter.login_days >= ENV['REQUIRED_LOGIN_DAYS'].to_i && counter.share_count >= 2
+
+  def invited_user_task_completed?
+    # 如果该用户不是新用户 或者 是后台创建的，那么不算被邀请完成的用户
+    return false if !new_user? || r_level.zero?
+    # 如果该用户没有完成我们设定好的任务 不算被邀请完成的用户
+    return false if counter.login_days < ENV['REQUIRED_LOGIN_DAYS'].to_i || counter.share_count < 2
+    true
+  end
+
+  def invite_user_completed_awards
+    return unless invited_user_task_completed? # 如果没有完成任务就直接返回
+    WheelTaskCount.award_times_from_invite(p_user) if p_user.present?
+    PocketMoney.new_user_register_award(self) # 给予现金红包
+    # 奖励下发完成 将用户标记为老用户
+    mark_to_old_user!
   end
 
   def mark_to_old_user!
