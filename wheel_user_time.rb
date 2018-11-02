@@ -1,7 +1,7 @@
 class WheelUserTime < ApplicationRecord
   belongs_to :user
 
-  def increase_total_times(by)
+  def increase_total_times(by = 1)
     increment!(:total_times, by)
   end
 

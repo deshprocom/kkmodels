@@ -57,6 +57,16 @@ module IntegralCreator
       create_record(create_params)
     end
 
+    # params: { user: 用户, points: 积分 }
+    def create_integral_to_wheel_times(params)
+      create_params = {
+          option_type: 'exchange_wheel_times',
+          category: 'wheel',
+          mark: '积分兑换转盘次数',
+      }.merge(params)
+      create_record(create_params)
+    end
+
     def create_record(params, active = true)
       integral = create(params) # 创建记录
       integral.touch_active! if active # 激活不需要领取
