@@ -6,6 +6,8 @@ class Activity < ApplicationRecord
 
   scope :published, -> { where(published: true) }
 
+  enum activity_type: { normal: 'normal', wheel: 'wheel' }
+
   after_initialize do
     self.begin_time ||= Date.current
     self.end_time ||= Date.current
