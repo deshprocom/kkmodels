@@ -13,6 +13,8 @@ module UserVisit
       increase_login_days
       # 转盘次数+3
       wheel_time.increase_total_times(3)
+      # 统计转盘活动开始 新增人数
+      WheelCount.create_count if ENV['WHEEL_START'].eql?'true'
     end
 
     # 老用户每日首次登陆
