@@ -10,4 +10,8 @@ class WheelUserPrize < ApplicationRecord
   def to_used
     update(used: true, used_time: Time.current)
   end
+
+  def pocket_money?
+    wheel_prize.face_value.to_i > 0 && prize_type.eql?('cheap')
+  end
 end
