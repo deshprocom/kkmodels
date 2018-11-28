@@ -96,4 +96,12 @@ class User < ApplicationRecord
                                      .includes(:coupon_temp)
                                      .where(coupon_temps: {coupon_type: :hotel})
   end
+
+  def user_location
+    return '' if lat.blank? || lng.blank?
+    location = ::Geo::Location.nearby(lat, lng)
+    cityname = location[:base][:cityname].to_s
+    near = location[:nearbys].blank? ? '' : location[:nearbys].first[:address].to_s
+    "#{cityname} #{near}".strip
+  end
 end
