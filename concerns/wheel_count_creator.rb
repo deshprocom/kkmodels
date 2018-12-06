@@ -35,5 +35,11 @@ module WheelCountCreator
         end
       end
     end
+
+    # 创建某种类型的延迟大奖
+    def create_delay_expensive_prize(wheel_prize)
+      current_num = wheel_total_count.new_user_count
+      ExpensivePrizeCount.create(wheel_prize_id: wheel_prize.id, current_user_num: current_num, delay: true)
+    end
   end
 end
