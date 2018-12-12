@@ -14,6 +14,7 @@ module Shop
               dependent: :destroy,
               class_name: 'Image'
     has_one :counter, class_name: 'ProductCounter', dependent: :destroy
+    has_one :one_yuan_buy
 
     validates :title, presence: true
     attr_accessor :root_category
