@@ -19,6 +19,8 @@ module Shop
     validates :title, presence: true
     attr_accessor :root_category
 
+    enum product_type: { entity: 'entity', virtual: 'virtual' }
+
     scope :recommended, -> { where(recommended: true) }
     scope :published, -> { where(published: true) }
     scope :search_keyword, ->(keyword) { where('title like ?', "%#{keyword}%") }
