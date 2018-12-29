@@ -7,6 +7,7 @@ module Shop
 
     belongs_to :category, optional: false
     belongs_to :shipping
+    belongs_to :merchant, optional: true
     has_many :option_types
     has_many :order_items
     has_many  :images, -> { order(position: :asc) },
