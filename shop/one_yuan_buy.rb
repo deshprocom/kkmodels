@@ -24,6 +24,17 @@ module Shop
 
       true
     end
+
+    def buy_status
+      current = DateTime.current
+      return 'unbegin' if current < begin_time
+
+      return 'end' if current > end_time
+
+      return 'sell_out' if sales_volume >= saleable_num
+
+      'going'
+    end
   end
 end
 
